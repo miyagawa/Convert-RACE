@@ -8,7 +8,7 @@ BEGIN {
     @ISA = qw(Exporter);
     @EXPORT = qw(to_race from_race);
     
-    $VERSION = '0.02';
+    $VERSION = '0.03';
 }
 
 use Carp ();
@@ -85,7 +85,7 @@ sub _compress($) {
 
     my $res = $u1;
 
-    while ($str =~ m/(.)(.)/g) {
+    while ($str =~ m/(.)(.)/gs) {
 	my ($u2, $n1) = ($1, $2);
 	if ($u2 eq "\x00" and $n1 eq "\x99") {
 	    Carp::croak(COMPRESS_EXCEPTION);
@@ -168,17 +168,16 @@ sub _decompress($) {
 sub _make_uniq_upper_octet($) {
     my $str = shift;
 
-    my @unique_upper_octet;
     my %seen;
-    while ($str =~ m/(.)./g) {
-	push @unique_upper_octet, $1 unless $seen{$1}++;
+    while ($str =~ m/(.)./gs) {
+	$seen{$1}++;
     }
-    return @unique_upper_octet;
+    return keys %seen;
 }
 
 sub _include_disallowed_names($) {
     # RFC 1035: letter, digit, hyphen
-    return $_[0] !~ /^(?:\x00[\x30-\x7a\x2d])*$/;
+    return $_[0] !~ /^(?:\x00[\x30-\x39\x41-\x5a\x61-\x7a\x2d])*$/;
 }
 
 
