@@ -7,8 +7,8 @@ BEGIN {
     require Exporter;
     @ISA = qw(Exporter);
     @EXPORT = qw(to_race from_race);
-    
-    $VERSION = '0.05';
+
+    $VERSION = '0.06';
 }
 
 use Carp ();
