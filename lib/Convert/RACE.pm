@@ -8,7 +8,7 @@ BEGIN {
     @ISA = qw(Exporter);
     @EXPORT = qw(to_race from_race);
 
-    $VERSION = '0.06';
+    $VERSION = '0.07';
 }
 
 use Carp ();
@@ -73,7 +73,7 @@ sub _compress($) {
     my $str = shift;
 
     my @unique_upper_octet = _make_uniq_upper_octet($str);
-     if (@unique_upper_octet > 2 ||
+    if (@unique_upper_octet > 2 ||
 	 (@unique_upper_octet == 2 &&
 	  ! grep { $_ eq "\x00" } @unique_upper_octet)) {
 	# from more than 2 rows
@@ -101,14 +101,14 @@ sub _compress($) {
 	    $res .= "\xff$n1";
 	}
     }
-    
+
     return $res;
 }
 
 
 sub _decompress($) {
     my $str = shift;
-    
+
     # 1)
     my ($u1, $rest) = (substr($str,0,1), substr($str,1));
     if (length($str) == 1) {
@@ -192,7 +192,7 @@ __END__
 
 =head1 NAME
 
-Convert::RACE - Conversion between Unicode and RACE 
+Convert::RACE - Conversion between Unicode and RACE
 
 =head1 SYNOPSIS
 
@@ -280,19 +280,15 @@ Set and get the domain prefix tag. By default, 'bq--'.
   Convert::RACE->prefix_tag('xx--');
 
 
-=head1 TODO AND CAVEATS
+=head1 BIG FAT CAVEAT
 
 =over 4
 
 =item *
 
-Using XS would be by far efficient.
-
-=item *
-
-No validation is done for the input UTF-16 string in to_race(). The
-internet draft says checking for prohibited name parts must be done
-before doing the conversion.
+This module does B<NOT> implement Nameprep phase. See mDNkit
+(http://www.nic.ad.jp/jp/research/idn/mdnkit/download/) for complete
+implementations.
 
 =back
 
@@ -304,6 +300,8 @@ Schout <mschout@gkg.net>.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
+
+There comes B<NO WARRANTY> with this module.
 
 =head1 SEE ALSO
 

@@ -12,8 +12,8 @@ DESCRIPTION
     Compatible Encoding) and Unicode Encodings.
 
     RACE converts strings with internationalized characters into strings of
-    US-ASCII that are acceptable as host name parts in current DNS host naming
-    usage.
+    US-ASCII that are acceptable as host name parts in current DNS host
+    naming usage.
 
     See http://www.ietf.org/internet-drafts/draft-ietf-idn-race-03.txt for
     more details.
@@ -23,20 +23,20 @@ FUNCTION
     Exporter manpage for details.
 
     to_race($utf16)
-        to_race() takes UTF-16 encoding and returns RACE-encoded strings such
-        as 'bq--aewrcsy'.
+        to_race() takes UTF-16 encoding and returns RACE-encoded strings
+        such as 'bq--aewrcsy'.
 
         This function throws an exception such as 'String includes no
-        internationalized characters', 'String too long' and 'Invalid encoding
-        to compress'. Exceptions are thrown with Carp::croak(), so you can
-        cath 'em with eval {};
+        internationalized characters', 'String too long' and 'Invalid
+        encoding to compress'. Exceptions are thrown with Carp::croak(), so
+        you can cath 'em with eval {};
 
     from_race($domain_name)
         from_race() takes 'bq--' prefixed string and returns original UTF-16
         string.
 
-        This function throws an exception such as 'String not begin with bq--
-        ', 'Decoded string includes no internationalized characters' and '
+        This function throws an exception such as 'String not begin with bq-
+        -', 'Decoded string includes no internationalized characters' and '
         Invalid format to decompress'. Exceptions are thrown with
         Carp::croak(), so you can cath 'em with eval {};
 
@@ -70,43 +70,23 @@ EXAMPLES
       # change the prefix
       Convert::RACE->prefix_tag('xx--');
 
-TODO AND CAVEATS
-    *   Using XS would be by far efficient.
-
-    *   No validation is done for the input UTF-16 string in to_race(). The
-        internet draft says checking for prohibited name parts must be done
-        before doing the conversion.
+BIG FAT CAVEAT
+    *   This module does NOT implement Nameprep phase. See mDNkit
+        (http://www.nic.ad.jp/jp/research/idn/mdnkit/download/) for complete
+        implementations.
 
 AUTHOR
     Tatsuhiko Miyagawa <miyagawa@bulknews.net>, with much help from Eugen
-    SAVIN <seugen@serifu.com>, Philip Newton <pne@cpan.org>, Michael J Schout
-    <mschout@gkg.net>.
+    SAVIN <seugen@serifu.com>, Philip Newton <pne@cpan.org>, Michael J
+    Schout <mschout@gkg.net>.
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
 
+    There comes NO WARRANTY with this module.
+
 SEE ALSO
-    http://www.i-d-n.net/, http://www.ietf.org/internet-drafts/draft-ietf-idn-
-    race-03.txt, RFC 1035, the Unicode::String manpage, the Jcode manpage, the
-    Convert::Base32 manpage.
-
-Revision history for Perl extension Convert::RACE.
-
-0.05  Tue Mar  6 16:44:33 JST 2001
-	- fixed bug in case that input strings contain characters
-	  from only 2 rows, both of which are not 0x00.
-	  Thanks to Michael J Schout <mschout@gkg.net>
-
-0.04  Thu Mar  1 23:03:06 JST 2001
-	- fixed the bug that if a character has a byte of 0x0a, 
-	  it is ignored.
-	  Thanks to Philip Newton <pne@cpan.org>
-
-0.02  Wed Feb 28 02:52:49 JST 2001
-	- fixed the bug in case that all of the upper octets are 
-	  either 0x00 or one single other value.
-	  Thanks to Eugen SAVIN <seugen@serifu.com>
-
-0.01  Sat Dec  9 21:01:11 2000
-	- original version; created by h2xs 1.19
+    http://www.i-d-n.net/, http://www.ietf.org/internet-drafts/draft-ietf-
+    idn-race-03.txt, RFC 1035, the Unicode::String manpage, the Jcode
+    manpage, the Convert::Base32 manpage.
 
