@@ -8,7 +8,7 @@ BEGIN {
     @ISA = qw(Exporter);
     @EXPORT = qw(to_race from_race);
     
-    $VERSION = '0.01';
+    $VERSION = '0.02';
 }
 
 use Carp ();
@@ -196,6 +196,8 @@ Convert::RACE - Conversion between Unicode and RACE
   $utf16str = from_race($domain);
 
 =head1 DESCRIPTION
+
+*NOTE* This module is B<deprecated>. Use C<Convert::ACE> instead. 
 
 This module provides functions to convert between RACE (Row-based
 ASCII-Compatible Encoding) and Unicode Encodings.
