@@ -2,8 +2,6 @@ Changes
 MANIFEST
 Makefile.PL
 README
-lib/Convert/Base32.pm
 lib/Convert/RACE.pm
 t/00load.t
-t/01base32.t
-t/02race.t
+t/01race.t

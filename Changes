@@ -1,5 +1,8 @@
 Revision history for Perl extension Convert::RACE.
 
+0.06  Wed Jul 18 17:35:32 JST 2001
+	- Convert::Base32 is now separated from Convert::RACE
+
 0.05  Tue Mar  6 16:44:33 JST 2001
 	- fixed bug in case that input strings contain characters
 	  from only 2 rows, both of which are not 0x00.
