@@ -8,7 +8,7 @@ BEGIN {
     @ISA = qw(Exporter);
     @EXPORT = qw(to_race from_race);
     
-    $VERSION = '0.03';
+    $VERSION = '0.04';
 }
 
 use Carp ();
@@ -292,7 +292,8 @@ before doing the conversion.
 
 =head1 AUTHOR
 
-Tatsuhiko Miyagawa <miyagawa@bulknews.net>
+Tatsuhiko Miyagawa <miyagawa@bulknews.net>, with much help from
+Eugen SAVIN <seugen@serifu.com>, Philip Newton <pne@cpan.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
