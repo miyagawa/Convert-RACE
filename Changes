@@ -1,9 +1,9 @@
 Revision history for Perl extension Convert::RACE.
 
 0.03  Thu Mar  1 23:03:06 JST 2001
-	- fixed the bug that if a character has a low byte of 0x0a, 
+	- fixed the bug that if a character has a byte of 0x0a, 
 	  it is ignored.
-	  Thanks to Philip Newton <philip.newton@datenrevision.de>
+	  Thanks to Philip Newton <pne@cpan.org>
 
 0.02  Wed Feb 28 02:52:49 JST 2001
 	- fixed the bug in case of all of the upper octets are 
