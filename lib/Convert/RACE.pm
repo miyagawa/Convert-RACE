@@ -8,7 +8,7 @@ BEGIN {
     @ISA = qw(Exporter);
     @EXPORT = qw(to_race from_race);
     
-    $VERSION = '0.04';
+    $VERSION = '0.05';
 }
 
 use Carp ();
@@ -73,7 +73,11 @@ sub _compress($) {
     my $str = shift;
 
     my @unique_upper_octet = _make_uniq_upper_octet($str);
-    if (@unique_upper_octet > 2) {
+     if (@unique_upper_octet > 2 ||
+	 (@unique_upper_octet == 2 &&
+	  ! grep { $_ eq "\x00" } @unique_upper_octet)) {
+	# from more than 2 rows
+	# or from 2 rows neither of with is 0
 	return "\xD8" . $str;
     }
 
@@ -119,7 +123,9 @@ sub _decompress($) {
 	}
 	# 9)
 	my @unique_upper_octet = _make_uniq_upper_octet($lcheck);
-	if (@unique_upper_octet <= 2) {
+	if (@unique_upper_octet == 1 ||
+	    (@unique_upper_octet == 2 &&
+	     grep { $_ eq "\x00" } @unique_upper_octet)) {
 	    Carp::croak(DECOMPRESS_EXCEPTION);
 	}
 	# 10)
@@ -292,8 +298,9 @@ before doing the conversion.
 
 =head1 AUTHOR
 
-Tatsuhiko Miyagawa <miyagawa@bulknews.net>, with much help from
-Eugen SAVIN <seugen@serifu.com>, Philip Newton <pne@cpan.org>
+Tatsuhiko Miyagawa <miyagawa@bulknews.net>, with much help from Eugen
+SAVIN <seugen@serifu.com>, Philip Newton <pne@cpan.org>, Michael J
+Schout <mschout@gkg.net>.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
