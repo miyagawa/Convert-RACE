@@ -198,8 +198,6 @@ Convert::RACE - Conversion between Unicode and RACE
 
 =head1 DESCRIPTION
 
-*NOTE* This module is B<deprecated>. Use C<Convert::ACE> instead. 
-
 This module provides functions to convert between RACE (Row-based
 ASCII-Compatible Encoding) and Unicode Encodings.
 
