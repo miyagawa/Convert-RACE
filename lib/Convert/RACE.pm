@@ -76,8 +76,9 @@ sub _compress($) {
     if (@unique_upper_octet > 2) {
 	return "\xD8" . $str;
     }
-    
-    my $u1 = $unique_upper_octet[0];
+
+    my $u1 = @unique_upper_octet == 1
+	? $unique_upper_octet[0] : (grep { $_ ne "\x00" } @unique_upper_octet)[0];
     if ($u1 =~ /^[\xd8-\xdc]{1}$/) {
         Carp::croak(COMPRESS_EXCEPTION);
     }
@@ -96,7 +97,7 @@ sub _compress($) {
 	    $res .= "\xff$n1";
 	}
     }
-
+    
     return $res;
 }
 
